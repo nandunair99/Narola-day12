@@ -38,14 +38,35 @@ public class ValidationOperations
 
 	 */
 
+	/*
 	public void getValidUsers(ArrayList<Person> list, Predicate<Person> tester, Consumer<Person> accepter, Function<Person,String> applier)
 	{
 		for(Person p:list)
 		{
 			if(tester.test(p))
 			{
+
 				accepter.accept(p);
 				System.out.println(applier.apply(p));
+			}
+
+
+		}
+	}
+
+	 */
+	public void getValidUsers(ArrayList<Person> list, Predicate<Person> tester, Consumer<Person> accepter, Function<Person,String> applier,Predicate<Person> tester2)
+	{
+		for(Person p:list)
+		{
+			if(tester.test(p))
+			{
+				if(tester2.test(p))
+				{
+					accepter.accept(p);
+					System.out.println(applier.apply(p));
+				}
+
 			}
 
 

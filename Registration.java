@@ -29,7 +29,7 @@ public class Registration
 		valOps.getValidUsers(list, new CheckPerson() {
 			@Override
 			public boolean test(Person p) {
-				if(p.getAge()>6 && p.getAge() <24)
+				if(p.getAge()>6 && p.getAge() <24)//test body
 					return true;
 				else
 					return false;
@@ -39,7 +39,7 @@ public class Registration
 		 */
 		/*
 		valOps.getValidUsers(list, p-> {  //implementing test method of functional interface
-				if(p.getAge()>6 && p.getAge() <24)
+				if(p.getAge()>6 && p.getAge() <24)//test body
 					return true;
 				else
 					return false;
@@ -53,7 +53,7 @@ public class Registration
 		valOps.getValidUsers(list, new Predicate<Person>() {
 					@Override
 					public boolean test(Person p) {
-						if (p.getAge() > 6 && p.getAge() < 24)
+						if (p.getAge() > 6 && p.getAge() < 24)//test body
 							return true;
 						else
 							return false;
@@ -83,7 +83,7 @@ public class Registration
 		valOps.getValidUsers(list, new Predicate<Person>() {
 					@Override
 					public boolean test(Person p) {
-						if (p.getAge() > 6 && p.getAge() < 24)
+						if (p.getAge() > 6 && p.getAge() < 24)//test body
 							return true;
 						else
 							return false;
@@ -105,14 +105,66 @@ public class Registration
 		 */
 
 		//method2
+		/*
 		valOps.getValidUsers(list,p-> {
-						if (p.getAge() > 6 && p.getAge() < 24)
+						if (p.getAge() > 6 && p.getAge() < 24)//test body
 							return true;
 						else
 							return false;
 
 				},
-				person->System.out.println(person.name),
-				person->{return String.valueOf(person.getAge());});
+				person->System.out.println(person.name),//accept body
+				person->{return String.valueOf(person.getAge());});//apply body
+
+		 */
+		//------------------------------------------
+		//method1
+		/*
+		valOps.getValidUsers(list, new Predicate<Person>() {
+					@Override
+					public boolean test(Person p) {
+						if (p.getAge() > 6 && p.getAge() < 24)//test body
+							return true;
+						else
+							return false;
+					}
+				},
+				new Consumer<Person>() {
+					@Override
+					public void accept(Person person) {
+						System.out.println(person.name);
+					}
+				},
+				new Function<Person, String>() {
+					@Override
+					public String apply(Person person) {
+						return String.valueOf(person.getAge());
+					}
+				},
+				new Predicate<Person>() {
+					@Override
+					public boolean test(Person person) {
+						if(person.name.startsWith("m"))return true;
+						else
+							return false;
+					}
+				});
+
+		 */
+		//method2
+		valOps.getValidUsers(list,
+				p->{ if(p.getAge() > 6 && p.getAge() < 24)//test body
+						return true;
+					else
+						return false;},
+				p->System.out.println(p.name),
+				p->{return String.valueOf(p.getAge());},
+				p->{
+					if(p.name.startsWith("m"))return true;
+					else return false;
+
+				});
+
+
 	}
 }
